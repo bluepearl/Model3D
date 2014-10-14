@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="css/dropzone.css" media="all">
 	<link rel="stylesheet" href="css/uploadify.css" type="text/css"></link>
 	<!--[if IE]><link rel="stylesheet" href="css/ie.css" media="all" /><![endif]-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 </head>
 <body  onload="startTime()">
 <div class="testing">
@@ -68,7 +69,6 @@
 		</div>
 	</section>
 </section>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script src="js/jquery.wysiwyg.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/jquery.checkbox.min.js"></script>

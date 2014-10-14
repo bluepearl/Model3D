@@ -62,11 +62,11 @@ table {
 
 @font-face {
     font-family: 'entypo';
-    src: url('../_40font-face/entypo.eot');
-    src: url('../_40font-face/entypo.eot@#iefix') format('embedded-opentype'),
-         url('../_40font-face/entypo.woff') format('woff'),
-         url('../_40font-face/entypo.ttf') format('truetype'),
-         url('../_40font-face/entypo.svg#entypo') format('svg');
+    src: url('../css/font-face/entypo.eot');
+    src: url('../css/font-face/entypo.eot@#iefix') format('embedded-opentype'),
+         url('../css/font-face/entypo.woff') format('woff'),
+         url('../css/font-face/entypo.ttf') format('truetype'),
+         url('../css/font-face/entypo.svg#entypo') format('svg');
     font-weight: normal;
     font-style: normal;
 

@@ -23,7 +23,7 @@ if (request.getAttribute("list") == null ) {
 <meta name="viewport"
 	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 <link rel="stylesheet" href="css/style.css" media="all">
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <!--[if IE]><link rel="stylesheet" href="css/ie.css" media="all" /><![endif]-->
 <!--[if lt IE 9]><link rel="stylesheet" href="css/lt-ie-9.css" media="all" /><![endif]-->
 <!--[if IE 7]><link rel="stylesheet" href="css/IE/ie7.css" media="all" /><![endif]-->
@@ -51,10 +51,10 @@ if (request.getAttribute("list") == null ) {
 </div>
 <nav>
 	<ul>
-		<li onclick="selectSubContent(0);"><a><span class="icon">🛇</span> 我的首页</a></li>
-		<li onclick="selectSubContent(1);"><a><span class="icon">📄</span> 模型查看</a></li>
-		<li onclick="selectSubContent(2);"><a><span class="icon">🌄</span> 计算任务管理 <span class="pip">7</span></a></li>
-		<li onclick="selectSubContent(3);"><a><span class="icon"></span> 计算结果管理 <span class="pip">12</span></a>
+		<li class="section" onclick="selectSubContent(0);"><a><span class="icon">&#128711;</span> 我的首页</a></li>
+		<li onclick="selectSubContent(1);"><a><span class="icon">&#59214;</span> 模型查看</a></li>
+		<li onclick="selectSubContent(2);"><a><span class="icon">&#128187;</span> 计算任务管理 <span class="pip">7</span></a></li>
+		<li onclick="selectSubContent(3);"><a><span class="icon">&#128228;</span> 计算结果管理 <span class="pip">12</span></a>
 		</li>
 		<li></li>
 	</ul>
@@ -236,26 +236,26 @@ if (request.getAttribute("list") == null ) {
 </section>
 <section id="computeTask" class="content"  style="display:none">
 	<div class="widget-container">
-		<section class="widget 	small">
+		<section class="widget 	small" style="width:80%;margin-left:5%">
 			<header>
 				<span class="icon">🔿</span>
 				<hgroup>
-					<h1>已完成计算</h1>
-					<h2>查看计算结果</h2>
+					<h1>计算任务列表</h1>
+					<h2>上传计算任务&启动计算</h2>
 				</hgroup>
 				<aside>
-					<span>
-						<a href="#">⚙</a>
-					</span>
+					<button class="green" onclick="modelWindowShow()">+</button>
 				</aside>
 			</header>
 			<div class="content">
 			<table id="myTable" border="0" width="100">
 				<thead>
 					<tr>
-						<th class="header">任务标号</th>
+						<th class="header"><input type="checkbox">任务</th>
 						<th class="header">时间</th>
-						<th class="header">任务名称</th>
+						<th class="header">Solver</th>
+						<th class="header">删除</th>
+						<th class="header">启动</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -263,24 +263,31 @@ if (request.getAttribute("list") == null ) {
 						<td><input type="checkbox"> 1</td>
 						<td>01/3/2013</td>
 						<td>歼-25模型磁场</td>
+						<td><a>delete</a></td>
+						<td><a>start</a></td>
 					</tr>
 					<tr>
 						<td><input type="checkbox"> 3</td>
 						<td>07/3/2013</td>
 						<td>隐形侦察机模型红外场畸变</td>
+						<td><a>delete</a></td>
+						<td><a>start</a></td>
 					</tr>
 					<tr class="odd">
 						<td><input type="checkbox"></td>
 						<td></td>
 						<td></td>
+						<td></td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
-			<button type="submit" class="green">查看</button> 
+			<button type="submit" class="black">删除</button> 
+			<button type="submit" class="green">启动</button> 
 			</div>
 		</section>
 		
-		<section class="widget small">
+<!-- 		<section class="widget small">
 			<header>
 				<span class="icon"></span>
 				<hgroup>
@@ -310,7 +317,8 @@ if (request.getAttribute("list") == null ) {
 				</div>
 				<span class="show-more"><a href="#">More</a></span>
 			</div>
-		</section>
+		</section> 
+		-->
 	</div>
 </section>
 <section  id="computeResult" class="content"  style="display:none">
@@ -379,7 +387,36 @@ if (request.getAttribute("list") == null ) {
 		</div>
 	</section>
 </section>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<div id="PageCover" style="width: 100%; left: 0px; top: 0px; height: 100%; position: fixed; -webkit-user-select: none; z-index: 99999;background: tan;filter: alpha(Opacity=80);-moz-opacity: 0.5;opacity: 0.5;display:none">
+</div>
+<div id="ks-component702" class="mui-dialog mui-overlay mui-dialog-hasmask" tabindex="0" role="dialog" aria-labelledby="ks-stdmod-header-ks-component702" style="width: 400px; height: 360px;  left: 40%; top:40%;position: absolute;display:none;z-index: 99999;" aria-hidden="false;">
+	<section class="widget" style="min-height: 360px;">
+		<header>
+			<span class="icon">&#59153;</span>
+			<hgroup>
+				<h1>任务上传</h1>
+				<h2>新建上传任务</h2>
+			</hgroup>
+			<aside>
+				<span onclick="modelWindowClose()">
+					<a href="#">⚙</a>
+				</span>
+			</aside>
+		</header>
+		<div class="content">
+			<div id="dropzone">
+				<form action="UploadServlet" class="dropzone" id="my-awesome-dropzone" method="post">
+					<div id="fileList"></div>
+					<input id="loadBrowser" name="file" type="file">
+					<input class="blue" id="uploadFile" style="width: 80px; display: inline;" type="button"  value="上传文件">
+	  				<input class="blue" id="cancelUpload" style="width: 80px; margin-left: 25px; display: inline;" type="button" value="取消上传">
+				</form>
+			</div>
+		</div>
+	</section>
+</div>
+
+
 <script src="js/jquery.wysiwyg.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/cycle.js"></script>
@@ -402,6 +439,16 @@ $('.cycle').cycle({
     prev:    '.left-btn', 
     next:    '.right-btn'
 });
+function modelWindowClose()
+{
+	document.getElementById("PageCover").style.display="none";
+	document.getElementById("ks-component702").style.display="none";
+}
+function modelWindowShow()
+{
+	document.getElementById("PageCover").style.display="block";
+	document.getElementById("ks-component702").style.display="block";
+}
 </script>
 </body>
 </html>
