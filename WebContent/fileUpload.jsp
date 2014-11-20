@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="css/dropzone.css" media="all">
 	<link rel="stylesheet" href="css/uploadify.css" type="text/css"></link>
 	<!--[if IE]><link rel="stylesheet" href="css/ie.css" media="all" /><![endif]-->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script src="js/jquery-1.11.1.min.js"></script>
 </head>
 <body  onload="startTime()">
 <div class="testing">

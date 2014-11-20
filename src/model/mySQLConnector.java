@@ -8,13 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.sun.tracing.dtrace.ArgsAttributes;
-
+import developConfig.Gobal;
 
 
 public class mySQLConnector {
 		
 		/*以下是定义一些字段*/
-		private String url = "jdbc:mysql://localhost:3306/model3d?user=root&password=blue";	//数据库URL
+		//private String url = "jdbc:mysql://localhost:3306/model3d?user=root&password=blue";	//数据库URL
 		private static String className = "com.mysql.jdbc.Driver";	//数据库驱动类路径
 		private Connection conn = null;	//声明一个Connection对象
 		private Statement stmt = null;	//声明一个Statement对象
@@ -27,7 +27,7 @@ public class mySQLConnector {
 				Class.forName("com.mysql.jdbc.Driver");
 				System.out.println("driver load success");
 				//建立连接，连接到由属性url指定的数据库URL，并指定登录数据库的用户名和密码
-				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/model3d","root","blue");
+				conn = DriverManager.getConnection(Gobal.QUERY_DB_URL,Gobal.QUERY_DB_USER,Gobal.QUERY_DB_PASSWORD);
 				System.out.println("connect success");
 				//在初始化方法里面首先获取Statement对象
 				stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY );
@@ -41,7 +41,7 @@ public class mySQLConnector {
 		public mySQLConnector(){
 			init();
 		}
-/*		public static void main(String args[])
+/*test code		public static void main(String args[])
 		{
 			mySQLConnector con=new mySQLConnector();
 			ResultSet rs=con.executeQuery("select * from USER_ACCOUNT;");

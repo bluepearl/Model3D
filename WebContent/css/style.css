@@ -194,7 +194,7 @@ header input:focus {
 }
 
 section.content {
-	margin: 75px 0 0 210px;
+	margin: 20px 0 0 210px;
 	padding: 25px;
 	
 	-webkit-box-sizing: border-box;
@@ -213,9 +213,9 @@ section.alert {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	position:  absolute;
+	/*position:  absolute;*/
 	height: 68px;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 section.alert button {
@@ -673,7 +673,7 @@ nav {
 	width: 210px;
 	background: #3B3E40;
 	float: left;
-	position: relative;
+	/*position: relative;*/
 	z-index: 500;
 	
 	box-shadow: inset -20px 0 10px -20px #000;

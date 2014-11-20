@@ -22,6 +22,7 @@ if (request.getAttribute("list") == null ) {
 	<meta name="robots" content="" />
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="stylesheet" href="css/style.css" media="all" />
+	<script src="js/jquery-1.11.1.min.js"></script>
 	<!--[if IE]><link rel="stylesheet" href="css/ie.css" media="all" /><![endif]-->
 </head>
 <body>
@@ -64,7 +65,6 @@ if (request.getAttribute("list") == null ) {
 	</div>
 	</section>
 </section>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script src="js/jquery.wysiwyg.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/cycle.js"></script>

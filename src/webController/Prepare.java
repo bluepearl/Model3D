@@ -1,3 +1,12 @@
+/** 
+* <p> Title: Global </p> 
+* <p> Description: 定义系统中使用的常量 </p> 
+* <p> Copyright: Copyright (c) 2004 </p> 
+* <p> Company: hptec </p> 
+* @author ihavegotyou 
+* @version 1.0,2004/1/12 
+*/ 
+
 package webController;
 
 import java.io.IOException;

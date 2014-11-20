@@ -23,7 +23,7 @@ if (request.getAttribute("list") == null ) {
 <meta name="viewport"
 	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 <link rel="stylesheet" href="css/style.css" media="all">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script src="js/jquery-1.11.1.min.js"></script>
 <!--[if IE]><link rel="stylesheet" href="css/ie.css" media="all" /><![endif]-->
 <!--[if lt IE 9]><link rel="stylesheet" href="css/lt-ie-9.css" media="all" /><![endif]-->
 <!--[if IE 7]><link rel="stylesheet" href="css/IE/ie7.css" media="all" /><![endif]-->
@@ -148,7 +148,7 @@ if (request.getAttribute("list") == null ) {
 	</div>
 </section>
 <section id="modelView" class="content" style="display:none">
-	<div>
+	<div class="widget-container">
 		<section class="widget" style="min-height:150px;height:150px"> 
 			<header> 
 				<span class="icon">📈</span> 
@@ -322,30 +322,31 @@ if (request.getAttribute("list") == null ) {
 	</div>
 </section>
 <section  id="computeResult" class="content"  style="display:none">
-	<section class="widget">
-		<header>
-			<span class="icon">📄</span>
-			<hgroup>
-				<h1>模型计算结果列表</h1>
-				<h2>已完成计算，请查看</h2>
-			</hgroup>
-			<aside>
-				<span>
-					<a href="#">⚙</a>
-				</span>
-			</aside>
-		</header>
-		<div class="content">
-			<table id="myTable" border="0" width="100">
-				<thead>
-					<tr>
-						<th class="header">任务标号</th>
-						<th class="header">时间</th>
-						<th class="header">任务名称</th>
-						<th class="header">任务状态</th>
-						<th class="header">备注</th>
-					</tr>
-				</thead>
+	<div class="widget-container">
+		<section class="widget"> 
+			<header> 
+				<span class="icon">📄</span> 
+				<hgroup>
+					<h1>模型计算结果列表</h1>
+					<h2>已完成计算，请查看</h2>
+				</hgroup> 
+				<aside> 
+					<span> 
+						<a href="#">⚙</a>
+					</span> 
+				</aside>
+			</header>
+			<div class="content">
+				<table id="myTable" border="0" width="100">
+					<thead>
+						<tr>
+							<th class="header">任务标号</th>
+							<th class="header">时间</th>
+							<th class="header">任务名称</th>
+							<th class="header">任务状态</th>
+							<th class="header">备注</th>
+						</tr>
+					</thead>
 					<tbody>
 						<tr class="odd">
 							<td><input type="checkbox"> 1</td>
@@ -384,8 +385,9 @@ if (request.getAttribute("list") == null ) {
 						</tr>
 					</tbody>
 				</table>
-		</div>
-	</section>
+			</div>
+		</section>
+	</div>
 </section>
 <div id="PageCover" style="width: 100%; left: 0px; top: 0px; height: 100%; position: fixed; -webkit-user-select: none; z-index: 99999;background: tan;filter: alpha(Opacity=80);-moz-opacity: 0.5;opacity: 0.5;display:none">
 </div>

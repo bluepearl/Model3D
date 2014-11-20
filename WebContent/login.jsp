@@ -11,6 +11,7 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="stylesheet" href="css/style.css" media="all">
 	<!--[if IE]><link rel="stylesheet" href="css/ie.css" media="all" /><![endif]-->
+	<script src="js/jquery-1.11.1.min.js"></script>
 </head>
 <body class="login">
 	<section>
@@ -23,5 +24,5 @@
 		<p><a href="#">忘记密码?</a></p>
 		<p><a href="login_back.jsp">Right @SEU</a></p>
 	</section>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script></body>
+</body>
 </html>
