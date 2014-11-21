@@ -23,6 +23,7 @@ if (request.getAttribute("list") == null ) {
 <meta name="viewport"
 	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 <link rel="stylesheet" href="css/style.css" media="all">
+<link rel="stylesheet" href="css/ui.css" media="all">
 <script src="js/jquery-1.11.1.min.js"></script>
 <!--[if IE]><link rel="stylesheet" href="css/ie.css" media="all" /><![endif]-->
 <!--[if lt IE 9]><link rel="stylesheet" href="css/lt-ie-9.css" media="all" /><![endif]-->
@@ -254,6 +255,7 @@ if (request.getAttribute("list") == null ) {
 						<th class="header"><input type="checkbox">任务</th>
 						<th class="header">时间</th>
 						<th class="header">Solver</th>
+						<th class="header">进度</th>
 						<th class="header">删除</th>
 						<th class="header">启动</th>
 					</tr>
@@ -263,6 +265,12 @@ if (request.getAttribute("list") == null ) {
 						<td><input type="checkbox"> 1</td>
 						<td>01/3/2013</td>
 						<td>歼-25模型磁场</td>
+						<td>
+							<div id="progressbar5" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38" style="width: 100px;height: 10px;">
+								<div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: 38%;height: 10px;">
+								</div>
+							</div>
+						</td>
 						<td><a>delete</a></td>
 						<td><a>start</a></td>
 					</tr>
@@ -270,6 +278,12 @@ if (request.getAttribute("list") == null ) {
 						<td><input type="checkbox"> 3</td>
 						<td>07/3/2013</td>
 						<td>隐形侦察机模型红外场畸变</td>
+						<td>
+							<div id="progressbar5" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38" style="width: 100px;height: 10px;">
+								<div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: 60%;height: 10px;">
+								</div>
+							</div>
+						</td>
 						<td><a>delete</a></td>
 						<td><a>start</a></td>
 					</tr>
@@ -343,8 +357,8 @@ if (request.getAttribute("list") == null ) {
 							<th class="header">任务标号</th>
 							<th class="header">时间</th>
 							<th class="header">任务名称</th>
-							<th class="header">任务状态</th>
 							<th class="header">备注</th>
+							<th class="header">计算结果</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -352,29 +366,29 @@ if (request.getAttribute("list") == null ) {
 							<td><input type="checkbox"> 1</td>
 							<td>01/3/2013</td>
 							<td>歼-25模型磁场</td>
-							<td>已完成</td>
 							<td>无</td>
+							<td><a href="#">查看</a></td>
 						</tr>
 						<tr>
 							<td><input type="checkbox"> 2</td>
 							<td>06/3/2013</td>
 							<td>波音747模型磁场扭曲</td>
-							<td>进行中</td>
 							<td>无</td>
+							<td><a href="#">查看</a></td>
 						</tr>
 						<tr class="odd">
 							<td><input type="checkbox"> 3</td>
 							<td>07/3/2013</td>
 							<td>隐形侦察机模型红外场畸变</td>
-							<td>已完成</td>
 							<td>优先计算</td>
+							<td><a href="#">查看</a></td>
 						</tr>
 						<tr>
 							<td><input type="checkbox"> 4</td>
 							<td>07/3/2013</td>
 							<td>雄鹿直升机气流场</td>
-							<td>等待中</td>
 							<td>无</td>
+							<td><a href="#">查看</a></td>
 						</tr>
 						<tr class="odd">
 							<td><input type="checkbox"> 5</td>
