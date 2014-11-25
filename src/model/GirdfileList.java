@@ -15,7 +15,7 @@ public class GirdfileList {
 
 	String checkedFileSql="select ID,filename from gridfile where verified>0;";
 	String unCheckedFileSql="select ID,filename from gridfile where verified=0;";
-	String searchFileSql="select ID,filename from gridfile where filename=?;";
+	String searchFileSql="select ID,filename from gridfile where filename LIKE ?;";
 	ArrayList<String> arrayList1 = new ArrayList<String>();
 	ArrayList<String[]> arrayList2 = new ArrayList<String[]>();
 	public ArrayList<String[]> getFileList()
@@ -55,7 +55,7 @@ public class GirdfileList {
 		ArrayList<String[]> list = null;
 		mySQLConnector con=new mySQLConnector();
 		con.readyPreparedStatement(searchFileSql);
-		con.setString(1,filename);
+		con.setString(1,filename+'%');
 		ResultSet rs=con.executeQuery();
 		try
 		{	

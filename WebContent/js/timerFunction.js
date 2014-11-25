@@ -8,6 +8,9 @@
 	subContent[1]="modelView";
 	subContent[2]="computeTask";
 	subContent[3]="computeResult";
+	var sourceLocation=new Array();
+	sourceLocation[0]="fromlocal";
+	sourceLocation[1]="fromDB";
 	//-----------------------------------------------------------------------------
 	/*
 	 * selectSubContent函数是mainpage页面的各个子页面切换的函数
@@ -50,3 +53,41 @@
 		}
 		return i;
 	};
+	
+	/*
+	 * selectTab函数是mainpage页面下上传任务子页面的弹出模态页面切换模型文件来源的函数
+	 */
+	function selectTab(showSource,e){
+		e=e||window.event;
+		e.target=e.target||e.srcElement;
+		var i=0;
+		var x=document.getElementById("modelsource");
+		var y=x.getElementsByTagName("li");			
+		while(i<2){
+			y[i].className="";
+			i++;
+		}
+		e.target.className="selected";
+		
+		var j=0;
+    	for(j=0;j<2;j++){
+    		document.getElementById(sourceLocation[j]).style.display="none"; 
+    	}
+    	document.getElementById(sourceLocation[showSource]).style.display="block";
+	}
+	
+	
+	/*
+	 * modelWindowClose、modelWindowShow函数是mainpage页面下计算任务子页面的上传任务弹出模态页面和关闭的函数
+	 */	
+	function modelWindowClose()
+	{
+		document.getElementById("PageCover").style.display="none";
+		document.getElementById("ks-component702").style.display="none";
+	}
+	function modelWindowShow()
+	{
+		document.getElementById("PageCover").style.display="block";
+		document.getElementById("ks-component702").style.display="block";
+		document.getElementById("ks-component702").focus();
+	}

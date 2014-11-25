@@ -20,7 +20,7 @@
 	var WIDTH,HEIGHT;
 	var	renderer;
 	function initThree() {
-		WIDTH = document.documentElement.clientWidth;<!--{foreach from=$recommended_goods item=rgoods}--> <!-- {/foreach} -->
+		WIDTH = document.documentElement.clientWidth;
 		HEIGHT = document.documentElement.clientHeight;
 
 		/* 渲染器 */

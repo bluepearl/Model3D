@@ -211,3 +211,43 @@
 #tabs ul li.ui-tabs-active a {
 	color: #fff;
 }
+
+/** SMALL TABS  **/
+.smallTab li
+{
+	display:inline;
+	padding:2px;
+	border-left:1px solid;
+	border-right:1px solid;
+	z-index:999
+}
+.smallTab li.selected
+{
+	border-top:1px solid;
+	boder-bottom:1px solid;
+	background:wheat;
+}
+
+
+/** UPLOAD **/
+.upload
+{
+	width: 68px;
+	height: 24px;
+	line-height: 25px;
+	display: block;
+	text-align: center;
+	color: #73797c;
+	overflow: hidden;
+	border:1px solid;
+}
+.upload input{
+	position: relative;
+	top: -24px;
+	width: 68px;
+	height: 24px;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	cursor: pointer;
+	font-size: 30px;
+}

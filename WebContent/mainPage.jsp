@@ -24,6 +24,8 @@ if (request.getAttribute("list") == null ) {
 	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 <link rel="stylesheet" href="css/style.css" media="all">
 <link rel="stylesheet" href="css/ui.css" media="all">
+<style type="text/css">
+</style>
 <script src="js/jquery-1.11.1.min.js"></script>
 <!--[if IE]><link rel="stylesheet" href="css/ie.css" media="all" /><![endif]-->
 <!--[if lt IE 9]><link rel="stylesheet" href="css/lt-ie-9.css" media="all" /><![endif]-->
@@ -405,7 +407,7 @@ if (request.getAttribute("list") == null ) {
 </section>
 <div id="PageCover" style="width: 100%; left: 0px; top: 0px; height: 100%; position: fixed; -webkit-user-select: none; z-index: 99999;background: tan;filter: alpha(Opacity=80);-moz-opacity: 0.5;opacity: 0.5;display:none">
 </div>
-<div id="ks-component702" class="mui-dialog mui-overlay mui-dialog-hasmask" tabindex="0" role="dialog" aria-labelledby="ks-stdmod-header-ks-component702" style="width: 400px; height: 360px;  left: 40%; top:40%;position: absolute;display:none;z-index: 99999;" aria-hidden="false;">
+<div id="ks-component702" role="dialog" aria-labelledby="ks-stdmod-header-ks-component702" style="width: 600px; height: 360px;  left: 35%; top:30%;position: absolute;display:none;z-index: 99999;" aria-hidden="false;">
 	<section class="widget" style="min-height: 360px;">
 		<header>
 			<span class="icon">&#59153;</span>
@@ -422,8 +424,63 @@ if (request.getAttribute("list") == null ) {
 		<div class="content">
 			<div id="dropzone">
 				<form action="UploadServlet" class="dropzone" id="my-awesome-dropzone" method="post">
-					<div id="fileList"></div>
-					<input id="loadBrowser" name="file" type="file">
+					<div>选择模型：
+						<p id="modelfile"></p>
+						<input type="button" class="black" value="确定" style="display:none;">
+						<ul id="modelsource" class="smallTab"  >
+							<li onclick="selectTab(0)" class="selected">从本地选择</li>
+							<li onclick="selectTab(1)">从节点选择</li>
+						</ul>
+						<div id="fromlocal"><br>
+							<a href="javascript:void(0);" class="upload" title="选文件">选文件
+								<input style="" id="upload_file" type="file" multiple="">
+							</a>
+						</div>
+						<br>
+						<div id="fromDB" style="height:150px;display:none">
+							<table id="myTable" border="0" width="100">
+								<thead>
+									<tr>
+										<th class="header fixedth">ID</th>
+										<th class="header fixedth">模型文件</th>
+										<th class="header fixedth">预览</th>
+									</tr>
+								</thead>
+								</table>
+								<div style="width:550px; height:100px;overflow-y: scroll;border-bottom:1px solid #ddd;">
+								<table id="myTable" border="0" width="100">
+								<tbody>
+									<tr class="odd">
+										<td><input type="radio" name="modelfileID"></td>
+										<td>ball.stl</td>
+										<td><a>查看</a></td>
+									</tr>
+									<tr>
+										<td><input type="radio" name="modelfileID"></td>
+										<td>ball.stl</td>
+										<td><a>查看</a></td>
+									</tr>
+									<tr class="odd">
+										<td><input type="radio" name="modelfileID"></td>
+										<td>ball.stl</td>
+										<td><a>查看</a></td>
+									</tr>
+								</tbody>
+							</table></div>
+						</div>
+					</div>
+					<div id="fileList">上传工程：<br><br>
+						<a href="javascript:void(0);" class="upload" title="选文件">选文件
+							<input style="" id="upload_file" type="file" multiple="">
+						</a>
+					</div>
+					<br>
+					<div id="fileList">配置文件：<br><br>
+						<a href="javascript:void(0);" class="upload" title="选文件">选文件
+							<input style="" id="upload_file" type="file" multiple="">
+						</a>
+					</div>
+					<br>
 					<input class="blue" id="uploadFile" style="width: 80px; display: inline;" type="button"  value="上传文件">
 	  				<input class="blue" id="cancelUpload" style="width: 80px; margin-left: 25px; display: inline;" type="button" value="取消上传">
 				</form>
@@ -455,16 +512,6 @@ $('.cycle').cycle({
     prev:    '.left-btn', 
     next:    '.right-btn'
 });
-function modelWindowClose()
-{
-	document.getElementById("PageCover").style.display="none";
-	document.getElementById("ks-component702").style.display="none";
-}
-function modelWindowShow()
-{
-	document.getElementById("PageCover").style.display="block";
-	document.getElementById("ks-component702").style.display="block";
-}
 </script>
 </body>
 </html>

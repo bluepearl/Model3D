@@ -18,6 +18,7 @@
 	<header class="main">
 		<h1><strong>电磁兼容模型</strong> 管理平台</h1>
 		<input type="text" value="搜索">
+		<span class="button blue" style="margin-top: -23px; float: right; position: relative;" onclick="window.open('SearchFile.jsp?filename='+document.getElementById('search').value)">查询</span>
 	</header>
 	<section class="user" >
 		<div class="profile-img">

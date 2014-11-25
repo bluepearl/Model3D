@@ -17,7 +17,6 @@ $(document).ready(function () {
 	
     //奇偶行不同颜色
 	$("#myTable tbody tr:odd").addClass("odd");
-	
     //或者
     //$("#table2 tbody tr:odd").css("background-color", "#bbf"),
     //$("#table2 tbody tr:even").css("background-color", "#ffc")
