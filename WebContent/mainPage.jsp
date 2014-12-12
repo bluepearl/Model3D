@@ -422,69 +422,7 @@ if (request.getAttribute("list") == null ) {
 			</aside>
 		</header>
 		<div class="content">
-			<div id="dropzone">
-				<form action="UploadServlet" class="dropzone" id="my-awesome-dropzone" method="post">
-					<div>选择模型：
-						<p id="modelfile"></p>
-						<input type="button" class="black" value="确定" style="display:none;">
-						<ul id="modelsource" class="smallTab"  >
-							<li onclick="selectTab(0)" class="selected">从本地选择</li>
-							<li onclick="selectTab(1)">从节点选择</li>
-						</ul>
-						<div id="fromlocal"><br>
-							<a href="javascript:void(0);" class="upload" title="选文件">选文件
-								<input style="" id="upload_file" type="file" multiple="">
-							</a>
-						</div>
-						<br>
-						<div id="fromDB" style="height:150px;display:none">
-							<table id="myTable" border="0" width="100">
-								<thead>
-									<tr>
-										<th class="header fixedth">ID</th>
-										<th class="header fixedth">模型文件</th>
-										<th class="header fixedth">预览</th>
-									</tr>
-								</thead>
-								</table>
-								<div style="width:550px; height:100px;overflow-y: scroll;border-bottom:1px solid #ddd;">
-								<table id="myTable" border="0" width="100">
-								<tbody>
-									<tr class="odd">
-										<td><input type="radio" name="modelfileID"></td>
-										<td>ball.stl</td>
-										<td><a>查看</a></td>
-									</tr>
-									<tr>
-										<td><input type="radio" name="modelfileID"></td>
-										<td>ball.stl</td>
-										<td><a>查看</a></td>
-									</tr>
-									<tr class="odd">
-										<td><input type="radio" name="modelfileID"></td>
-										<td>ball.stl</td>
-										<td><a>查看</a></td>
-									</tr>
-								</tbody>
-							</table></div>
-						</div>
-					</div>
-					<div id="fileList">上传工程：<br><br>
-						<a href="javascript:void(0);" class="upload" title="选文件">选文件
-							<input style="" id="upload_file" type="file" multiple="">
-						</a>
-					</div>
-					<br>
-					<div id="fileList">配置文件：<br><br>
-						<a href="javascript:void(0);" class="upload" title="选文件">选文件
-							<input style="" id="upload_file" type="file" multiple="">
-						</a>
-					</div>
-					<br>
-					<input class="blue" id="uploadFile" style="width: 80px; display: inline;" type="button"  value="上传文件">
-	  				<input class="blue" id="cancelUpload" style="width: 80px; margin-left: 25px; display: inline;" type="button" value="取消上传">
-				</form>
-			</div>
+		<iframe name=123  align=middle marginwidth=0 marginheight=0 vspace=-170 hspace=0 src="ProjectUpload.jsp"  frameborder=no scrolling=no  width=450  height=400></iframe>
 		</div>
 	</section>
 </div>
