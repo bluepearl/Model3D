@@ -16,10 +16,13 @@ public class GirdfileList {
 	String checkedFileSql="select ID,filename from gridfile where verified>0;";
 	String unCheckedFileSql="select ID,filename from gridfile where verified=0;";
 	String searchFileSql="select ID,filename from gridfile where filename LIKE ?;";
-	ArrayList<String> arrayList1 = new ArrayList<String>();
-	ArrayList<String[]> arrayList2 = new ArrayList<String[]>();
+	String RecentModelFileSql="SELECT ID,filename FROM gridfile limit 0,3; ";
+	ArrayList<String> arrayList1;
+	ArrayList<String[]> arrayList2;
 	public ArrayList<String[]> getFileList()
 	{
+		arrayList1 = new ArrayList<String>();
+		arrayList2 = new ArrayList<String[]>();
 		ArrayList<String[]> list = null;
 		mySQLConnector con=new mySQLConnector();
 		ResultSet rs=con.executeQuery(checkedFileSql);
@@ -36,6 +39,8 @@ public class GirdfileList {
 	}
 	public ArrayList<String[]> getUnCheckedFileList()
 	{
+		arrayList1 = new ArrayList<String>();
+		arrayList2 = new ArrayList<String[]>();
 		ArrayList<String[]> list = null;
 		mySQLConnector con=new mySQLConnector();
 		ResultSet rs=con.executeQuery(unCheckedFileSql);
@@ -50,8 +55,28 @@ public class GirdfileList {
 		con.close();
 		return list;
 	}
+	public ArrayList<String[]> getRecentModelFileList()
+	{
+		arrayList1 = new ArrayList<String>();
+		arrayList2 = new ArrayList<String[]>();
+		ArrayList<String[]> list = null;
+		mySQLConnector con=new mySQLConnector();
+		ResultSet rs=con.executeQuery(RecentModelFileSql);
+		try
+		{	
+			convertList(rs);
+			list=arrayList2;
+		}catch(Exception e)
+		{ 
+			e.printStackTrace();
+			}
+		con.close();
+		return list;
+	}
 	public ArrayList<String[]> getSearchFileList(String filename)
 	{
+		arrayList1 = new ArrayList<String>();
+		arrayList2 = new ArrayList<String[]>();
 		ArrayList<String[]> list = null;
 		mySQLConnector con=new mySQLConnector();
 		con.readyPreparedStatement(searchFileSql);
@@ -68,6 +93,7 @@ public class GirdfileList {
 		con.close();
 		return list;
 	}
+	
 	public  void convertList(ResultSet rs) throws SQLException {
 
 		//List list = new ArrayList();
