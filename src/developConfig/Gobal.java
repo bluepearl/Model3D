@@ -18,6 +18,7 @@ public interface Gobal {
 	String QUERY_DB_USER="root";
 	String QUERY_DB_PASSWORD="blue";
 	
+	String[] IPAddress={"172.18.14.45","172.18.14.41.46","172.18.1.47"};
 //	String TIME_FORMAT= "yyyy-MM-dd HH:mm:ss "; //时间格式 
 //
 //	String KEY_CONFIG= "infoservice-admin "; //系统配置文件的名字 
