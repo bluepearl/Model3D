@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% 
-if (request.getAttribute("list") == null ) {
+if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel")==null ) {
 %>
 <jsp:forward page="/PrepareforMainpage">
 <jsp:param value="1" name="getdata"/>
@@ -87,7 +87,13 @@ if (request.getAttribute("list") == null ) {
 			</header>
 			<div class="content">
 				<section class="stats-wrapper">
-					<div class="stats">
+				<c:forEach items="${recentmodel}" var="item" varStatus="status">
+					<div class="stats" onclick="viewrecentmodel('${item[1]}')" >
+						<p><span style="font-size:24px" >${item[1]}</span></p>
+						<p>模型号：${item[0]}</p>
+					</div>
+				</c:forEach>
+<!-- 					<div class="stats">
 						<p><span style="font-size:24px">plane.model</span></p>
 						<p>位于节点DB_Site1上</p>
 					</div>
@@ -101,14 +107,15 @@ if (request.getAttribute("list") == null ) {
 						<p><span style="font-size:24px">25F.model</span></p>
 						<p>位于节点DB_Site1上</p>
 					</div>
-					<div class="stats">
-						<p><span style="font-size:24px">.model</span></p>
-						<p>位于节点DB_Site3上</p>
+ -->
+					<div class="stats" style="float:left" onclick="selectSubContent(1)">
+						<p><span style="font-size:24px">...</span></p>
+						<p>More</p>
 					</div>
+
 				</section>
 			</div>
 		</section>
-
 		<section class="widget small">
 			<header> 
 				<span class="icon">🕫</span>
@@ -202,7 +209,7 @@ if (request.getAttribute("list") == null ) {
 					</tr>
 				</thead>
 				<tbody id="filename">
-					<c:forEach items="${list}" var="item" varStatus="status">
+					<c:forEach items="${filelist}" var="item" varStatus="status">
 					<tr>
 						<td><input type="checkbox">${item[0]}</td>
 						<td>${item[1]}</td>
@@ -263,10 +270,10 @@ if (request.getAttribute("list") == null ) {
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="odd">
+					<tr class="odd" >
 						<td><input type="checkbox"> 1</td>
 						<td>01/3/2013</td>
-						<td>歼-25模型磁场</td>
+						<td><a href="#" onclick="window.open('ComputeTaskDetail.jsp')">歼-25模型磁场</a></td>
 						<td>
 							<div id="progressbar5" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38" style="width: 100px;height: 10px;">
 								<div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: 38%;height: 10px;">
@@ -279,7 +286,7 @@ if (request.getAttribute("list") == null ) {
 					<tr>
 						<td><input type="checkbox"> 3</td>
 						<td>07/3/2013</td>
-						<td>隐形侦察机模型红外场畸变</td>
+						<td><a href="#" onclick="window.open('ComputeTaskDetail.jsp')">隐形侦察机模型红外场畸变</a></td>
 						<td>
 							<div id="progressbar5" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38" style="width: 100px;height: 10px;">
 								<div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: 60%;height: 10px;">
@@ -422,69 +429,7 @@ if (request.getAttribute("list") == null ) {
 			</aside>
 		</header>
 		<div class="content">
-			<div id="dropzone">
-				<form action="UploadServlet" class="dropzone" id="my-awesome-dropzone" method="post">
-					<div>选择模型：
-						<p id="modelfile"></p>
-						<input type="button" class="black" value="确定" style="display:none;">
-						<ul id="modelsource" class="smallTab"  >
-							<li onclick="selectTab(0)" class="selected">从本地选择</li>
-							<li onclick="selectTab(1)">从节点选择</li>
-						</ul>
-						<div id="fromlocal"><br>
-							<a href="javascript:void(0);" class="upload" title="选文件">选文件
-								<input style="" id="upload_file" type="file" multiple="">
-							</a>
-						</div>
-						<br>
-						<div id="fromDB" style="height:150px;display:none">
-							<table id="myTable" border="0" width="100">
-								<thead>
-									<tr>
-										<th class="header fixedth">ID</th>
-										<th class="header fixedth">模型文件</th>
-										<th class="header fixedth">预览</th>
-									</tr>
-								</thead>
-								</table>
-								<div style="width:550px; height:100px;overflow-y: scroll;border-bottom:1px solid #ddd;">
-								<table id="myTable" border="0" width="100">
-								<tbody>
-									<tr class="odd">
-										<td><input type="radio" name="modelfileID"></td>
-										<td>ball.stl</td>
-										<td><a>查看</a></td>
-									</tr>
-									<tr>
-										<td><input type="radio" name="modelfileID"></td>
-										<td>ball.stl</td>
-										<td><a>查看</a></td>
-									</tr>
-									<tr class="odd">
-										<td><input type="radio" name="modelfileID"></td>
-										<td>ball.stl</td>
-										<td><a>查看</a></td>
-									</tr>
-								</tbody>
-							</table></div>
-						</div>
-					</div>
-					<div id="fileList">上传工程：<br><br>
-						<a href="javascript:void(0);" class="upload" title="选文件">选文件
-							<input style="" id="upload_file" type="file" multiple="">
-						</a>
-					</div>
-					<br>
-					<div id="fileList">配置文件：<br><br>
-						<a href="javascript:void(0);" class="upload" title="选文件">选文件
-							<input style="" id="upload_file" type="file" multiple="">
-						</a>
-					</div>
-					<br>
-					<input class="blue" id="uploadFile" style="width: 80px; display: inline;" type="button"  value="上传文件">
-	  				<input class="blue" id="cancelUpload" style="width: 80px; margin-left: 25px; display: inline;" type="button" value="取消上传">
-				</form>
-			</div>
+		<iframe name=123  align=middle marginwidth=0 marginheight=0 vspace=-170 hspace=0 src="ProjectUpload.jsp"  frameborder=no scrolling=no  width=450  height=400></iframe>
 		</div>
 	</section>
 </div>

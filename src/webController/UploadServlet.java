@@ -1,8 +1,13 @@
 package webController;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,8 +25,18 @@ import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.ProcessingInstruction;
+import org.jdom2.Text;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
+import sun.security.timestamp.TSRequest;
 import model.Uploadfile;
+import model.UserClient;
+import webController.*;
 /**
  * Servlet implementation class UploadServlet
  */
@@ -52,7 +67,6 @@ public class UploadServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-
 		RequestContext requestContext = new ServletRequestContext(request);
 		String savePath = generateDir();
 		processUpload(requestContext, response, savePath);
@@ -103,10 +117,71 @@ public class UploadServlet extends HttpServlet {
                     filepath=savePath + "/" + name;
                     Uploadfile uf=new Uploadfile(owner,name,filepath);
                     
+                    
+                    //Start 12.19
+                    String strEx = name.substring(name.lastIndexOf(".")+1).toLowerCase();
+                    String strProjectName = name.substring(0, name.lastIndexOf("."));
+                    File fekoDir = null;
+                    if (strEx.equals("pre") || strEx.equals("cfm")) 
+                    {
+						fekoDir = new File(savePath + "/" + strProjectName);
+						if (!fekoDir.exists()) 
+						{
+							fekoDir.mkdir();
+						}
+					}
+                    //End 12.19
+                    
                     if(uf.checkInsert()){
                     	System.out.println(name+"文件上传开始……");
                     	try {
-                            item.write(file);
+                    		
+                           // item.write(file);
+                            
+                            //Start 12.19
+                            if (strEx.equals("cst"))
+                            {
+                            	System.out.println("新的上传方式");
+                            	InputStream is = item.getInputStream();
+                                FileOutputStream os = new FileOutputStream(file);
+                                byte [] content = new byte [1024];
+                                int length = 0;
+                                while((length = is.read(content)) > 0)
+                                {
+                                	os.write(content, 0, length);
+                                }
+                                is.close();
+                                os.close();
+							}
+                            else if (strEx.equals("pre") || strEx.equals("cfm")) 
+                            {
+								InputStream is = item.getInputStream();
+								FileOutputStream os = new FileOutputStream(savePath + "/" + strProjectName + "/" + name);
+								byte [] content = new byte [1024];
+                                int length = 0;
+                            	while((length = is.read(content)) > 0)
+                            	{
+                                	os.write(content, 0, length);
+                                }
+                                is.close();
+                                os.close();
+							}
+                            else
+                            {
+                            	System.out.println("新的上传方式");
+                            	InputStream is = item.getInputStream();
+                                FileOutputStream os = new FileOutputStream(file);
+                                byte [] content = new byte [1024];
+                                int length = 0;
+                                while((length = is.read(content)) > 0)
+                                {
+                                	os.write(content, 0, length);
+                                }
+                                is.close();
+                                os.close();
+							}
+                            //End 12.19
+                         
                             String imgstr = this.getServletContext()
                                     .getContextPath();
 //                            imgstr = imgstr + "/upload/" + filename;
@@ -114,6 +189,35 @@ public class UploadServlet extends HttpServlet {
                             response.getWriter().write("http://localhost:8080"+imgstr);
                             uf.recordInsert();
                             logger.debug("admin upload file:"+name+" success!");
+                            
+                            //12.19
+                            
+                            if (strEx.equals("CST"))
+                            {
+								//UserClient userClient = new UserClient("CST", savePath + "/" + name, name);
+							}
+                            else if(strEx.equals("pre")) 
+                            {
+								//UserClient userClient = new UserClient("FEKO", savePath + "/" + strProjectName, name);
+							}
+                            
+                            SimpleDateFormat dfs = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
+                            String strTime = dfs.format(new Date());
+                            String strSolver = null;
+                            if (strEx .equals("cst")) 
+                            {
+								strSolver = "CST";
+							}
+                            else if(strEx.equals("pre") || strEx.equals("cfm")) 
+                            {
+                            	strSolver = "FEKO";
+							}
+							
+                            if (strSolver.equals("CST") || strSolver.equals("FEKO")) 
+                            {
+                            	WriteXml(name, strTime, strSolver, "admin", savePath + "/" + "XML");
+							}
+                               
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -165,5 +269,71 @@ public class UploadServlet extends HttpServlet {
             return name;
         }
     }
-
+    /**
+     * 
+     * @param strName 工程名
+     * @param strTime 上传时间
+     * @param strSolver 求解器
+     * @param strUsrName 用户名
+     * @param strPath 路径名
+     */
+    
+    private void WriteXml(String strName , String strTime, String strSolver, String strUsrName, String strPath)
+    {
+    	try 
+    	{
+			File xmlFile = new File(strPath + "/" + strUsrName + ".xml");
+			Format format = Format.getCompactFormat();
+			format.setEncoding("gb2312");
+			format.setIndent("    ");
+			XMLOutputter XMLOut = new XMLOutputter(format);
+			
+			if (!xmlFile.exists()) 
+			{
+				Element rootElement = new Element("TaskList");
+				Element taskElement = new Element("Task");
+				Element proNameElement = new Element("ProjectName");
+				Element timeElement = new Element("Time");
+				Element solverElement = new Element("Solver");
+				Element usrElement = new Element("User");
+				proNameElement.setText(strName);
+				timeElement.setText(strTime);
+				solverElement.setText(strSolver);
+				usrElement.setText(strUsrName);
+				Document dos = new Document(rootElement);
+				taskElement.addContent(proNameElement);
+				taskElement.addContent(timeElement);
+				taskElement.addContent(solverElement);
+				taskElement.addContent(usrElement);
+				rootElement.addContent(taskElement);
+				FileOutputStream fis = new FileOutputStream(xmlFile);
+				XMLOut.output(dos, fis);
+			}
+			else 
+			{
+				SAXBuilder builder = new SAXBuilder();
+				Document dos = builder.build(xmlFile);
+				Element rootElement = dos.getRootElement();
+				Element taskElement = new Element("Task");
+				Element proElement = new Element("ProjectName");
+				Element timeElement = new Element("Time");
+				Element solverElement = new Element("Solver");
+				Element userElement = new Element("User");
+				proElement.setText(strName);
+				timeElement.setText(strTime);
+				solverElement.setText(strSolver);
+				userElement.setText(strUsrName);
+				taskElement.addContent(proElement);
+				taskElement.addContent(timeElement);
+				taskElement.addContent(solverElement);
+				taskElement.addContent(userElement);
+				rootElement.addContent(taskElement);
+				XMLOut.output(dos, new FileOutputStream(xmlFile));
+			}
+			
+		} catch (Exception e){
+			
+			e.printStackTrace();
+		}
+    }
 }

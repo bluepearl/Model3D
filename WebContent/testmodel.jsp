@@ -109,7 +109,7 @@
 			renderer.clear(); 
 			renderer.render(scene, camera);
 		} );
-		loader.load( 'STLfile/'+loadstlname);
+		loader.load('/Model3D/Prepare3Dfile?filepath=D:/testfilereader/'+loadstlname);/*'STLfile/'+loadstlname*/
 		
 	}
 	
@@ -161,7 +161,7 @@
 		<button class="left-btn" style="font-size: 15px; background: #719e37" onclick="alert(document.getElementById('stlfilename').value+'已缓存于D:/STLfile')">新建计算</button>
 		
 			<button class="right-btn"
-				style="font-size: 15px; background: #719e37">添加磁场</button>
+				style="font-size: 15px; background: #719e37" onclick="threeStart()">添加磁场</button>
 		</form>
 		</aside> </header>
 
