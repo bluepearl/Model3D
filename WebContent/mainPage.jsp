@@ -422,6 +422,7 @@ if (request.getAttribute("list") == null ) {
 			</aside>
 		</header>
 		<div class="content">
+			<iframe name=123  align=middle marginwidth=0 marginheight=0 vspace=-170 hspace=0 src="ProjectUpload.jsp"  frameborder=no scrolling=no  width=450  height=400></iframe>
 		</div>
 	</section>
 </div>
@@ -440,9 +441,6 @@ if (request.getAttribute("list") == null ) {
 <script src="js/jquery.tablesorter.min.js"></script>
 <script src="js/timerFunction.js"></script>
 <script src="js/tableData.js"></script>
-<script type="text/javascript" src="js/jquery.uploadify.min.js"></script>
-<script src="js/swfobject.js"></script>
-<script type="text/javascript" src="js/useruploadcustom.js"></script>
 <script type="text/javascript">
 // Feature slider for graphs
 $('.cycle').cycle({

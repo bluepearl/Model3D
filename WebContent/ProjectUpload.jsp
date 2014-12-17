@@ -8,14 +8,13 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="robots" content="">
-	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="stylesheet" href="css/style.css" media="all">
 	<link rel="stylesheet" href="css/ui.css" media="all">
 	<!--[if IE]><link rel="stylesheet" href="css/ie.css" media="all" /><![endif]-->
 	<script src="js/jquery-1.11.1.min.js"></script>
 </head>
-<body>
-			<div id="dropzone">
+<body style="padding-top:0px">
+			<div>
 				<form action="UploadServlet" class="dropzone" id="my-awesome-dropzone"
 					method="post">
 					<div>
@@ -91,7 +90,12 @@
 			</div>
 </body>
 <script src="js/timerFunction.js"></script>
-<script type="text/javascript" src="js/jquery.uploadify.min.js"></script>
+<script language="javascript" type="text/javascript">  
+//防止客户端缓存文件，造成uploadify.js不更新，而引起的“喔唷，崩溃啦”  
+document.write("<script type='text/javascript' "  
+        + "src='js/jquery.uploadify.min.js?" + new Date()  
+        + "'></s" + "cript>");  
+</script>
 <script src="js/swfobject.js"></script>
 <script type="text/javascript" src="js/useruploadcustom.js"></script>
 </html>
