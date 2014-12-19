@@ -23,7 +23,7 @@ $(document).ready(function() {
 			if (data == "error") {     
                 //data就是服务器输出的内容。   
                 alert("上传失败！重名文件存在！")
-                //$('#uploadFile').uploadify('cancel', '*');   //取消所有上传的文件  
+                $('#uploadFile').uploadify('cancel', '*');   //取消所有上传的文件  
                 }
 			}
 	});
@@ -40,15 +40,15 @@ $(document).ready(function() {
 		'buttonText' : '选择文件', // 按钮上的文字
 		'simUploadLimit' : 1, // 一次同步上传的文件数目
 		'multi' : false, //是否允许同时上传多文件，默认false
-		'fileTypeDesc' : 'stl文件', //出现在上传对话框中的文件类型描述
-		'fileTypeExts' : '*.cfm;*.obj', //控制可上传文件的扩展名，启用本项时需同时声明fileDesc
+		'fileTypeDesc' : '所有文件', //出现在上传对话框中的文件类型描述
+		'fileTypeExts' : '*', //控制可上传文件的扩展名，启用本项时需同时声明fileDesc
 		'sizeLimit' : 86400, //控制上传文件的大小，单位byte
 		'displayData' : 'percentage',
 		'onUploadSuccess':function(file,data,response){
 			if (data == "error") {     
                 //data就是服务器输出的内容。   
                 alert("上传失败！重名文件存在！")
-                //$('#uploadFile').uploadify('cancel', '*');   //取消所有上传的文件  
+                $('#uploadFile').uploadify('cancel', '*');   //取消所有上传的文件  
                 }
 			}
 	});
@@ -65,15 +65,15 @@ $(document).ready(function() {
 		'buttonText' : '选择文件', // 按钮上的文字
 		'simUploadLimit' : 1, // 一次同步上传的文件数目
 		'multi' : false, //是否允许同时上传多文件，默认false
-		'fileTypeDesc' : 'stl文件', //出现在上传对话框中的文件类型描述
-		'fileTypeExts' : '*.stl;*.obj', //控制可上传文件的扩展名，启用本项时需同时声明fileDesc
+		'fileTypeDesc' : '所有文件', //出现在上传对话框中的文件类型描述
+		'fileTypeExts' : '*', //控制可上传文件的扩展名，启用本项时需同时声明fileDesc
 		'sizeLimit' : 86400, //控制上传文件的大小，单位byte
 		'displayData' : 'percentage',
 		'onUploadSuccess':function(file,data,response){
 			if (data == "error") {     
                 //data就是服务器输出的内容。   
                 alert("上传失败！重名文件存在！")
-                //$('#uploadFile').uploadify('cancel', '*');   //取消所有上传的文件  
+                $('#uploadFile').uploadify('cancel', '*');   //取消所有上传的文件  
                 }
 			}
 	});
