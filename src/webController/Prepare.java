@@ -55,9 +55,11 @@ public class Prepare extends HttpServlet {
 		
 		GirdfileList gf=new GirdfileList();
 		List list=gf.getFileList();
-		if(list!=null){
+		List recentmodel=gf.getRecentModelFileList();
+		if(list!=null&&recentmodel!=null){
 			//System.out.println(list);
-			request.setAttribute("list", list);
+			request.setAttribute("filelist", list);
+			request.setAttribute("recentmodel", recentmodel);
 			try {
 				request.getRequestDispatcher("/mainPage.jsp").forward(request, response);
 			} catch (ServletException e) {
@@ -66,7 +68,8 @@ public class Prepare extends HttpServlet {
 			System.out.println("success");
 		}
 		else{
-			request.setAttribute("list", 0);
+			request.setAttribute("filelist", 0);
+			request.setAttribute("recentmodel", 0);
 			try {
 				request.getRequestDispatcher("/mainPage.jsp").forward(request, response);
 			} catch (ServletException e) {

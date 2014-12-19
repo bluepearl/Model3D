@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% 
-if (request.getAttribute("list") == null ) {
+if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel")==null ) {
 %>
 <jsp:forward page="/PrepareforMainpage">
 <jsp:param value="1" name="getdata"/>
@@ -87,7 +87,13 @@ if (request.getAttribute("list") == null ) {
 			</header>
 			<div class="content">
 				<section class="stats-wrapper">
+				<c:forEach items="${recentmodel}" var="item" varStatus="status">
 					<div class="stats">
+						<p><span style="font-size:24px">${item[1]}</span></p>
+						<p>模型号：${item[0]}</p>
+					</div>
+				</c:forEach>
+<!-- 					<div class="stats">
 						<p><span style="font-size:24px">plane.model</span></p>
 						<p>位于节点DB_Site1上</p>
 					</div>
@@ -101,14 +107,15 @@ if (request.getAttribute("list") == null ) {
 						<p><span style="font-size:24px">25F.model</span></p>
 						<p>位于节点DB_Site1上</p>
 					</div>
-					<div class="stats">
-						<p><span style="font-size:24px">.model</span></p>
-						<p>位于节点DB_Site3上</p>
+ -->
+					<div class="stats" style="float:left">
+						<p><span style="font-size:24px">...</span></p>
+						<p>More</p>
 					</div>
+
 				</section>
 			</div>
 		</section>
-
 		<section class="widget small">
 			<header> 
 				<span class="icon">🕫</span>
@@ -202,7 +209,7 @@ if (request.getAttribute("list") == null ) {
 					</tr>
 				</thead>
 				<tbody id="filename">
-					<c:forEach items="${list}" var="item" varStatus="status">
+					<c:forEach items="${filelist}" var="item" varStatus="status">
 					<tr>
 						<td><input type="checkbox">${item[0]}</td>
 						<td>${item[1]}</td>
