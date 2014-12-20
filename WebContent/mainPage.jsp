@@ -88,8 +88,8 @@ if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel"
 			<div class="content">
 				<section class="stats-wrapper">
 				<c:forEach items="${recentmodel}" var="item" varStatus="status">
-					<div class="stats">
-						<p><span style="font-size:24px">${item[1]}</span></p>
+					<div class="stats" onclick="viewrecentmodel('${item[1]}')" >
+						<p><span style="font-size:24px" >${item[1]}</span></p>
 						<p>模型号：${item[0]}</p>
 					</div>
 				</c:forEach>
@@ -108,7 +108,8 @@ if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel"
 						<p>位于节点DB_Site1上</p>
 					</div>
  -->
-					<div class="stats" style="float:left">
+
+					<div class="stats" style="float:left" onclick="selectSubContent(1)">
 						<p><span style="font-size:24px">...</span></p>
 						<p>More</p>
 					</div>
@@ -429,7 +430,7 @@ if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel"
 			</aside>
 		</header>
 		<div class="content">
-			<iframe name=123  align=middle marginwidth=0 marginheight=0 vspace=-170 hspace=0 src="ProjectUpload.jsp"  frameborder=no scrolling=no  width=450  height=400></iframe>
+		<iframe name=123  align=middle marginwidth=0 marginheight=0 vspace=-170 hspace=0 src="ProjectUpload.jsp"  frameborder=no scrolling=no  width=450  height=400></iframe>
 		</div>
 	</section>
 </div>
