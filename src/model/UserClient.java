@@ -14,9 +14,15 @@ public class UserClient
 {
 
     private String projectString = "";
-    private static String[]IPAddress = {"223.3.47.107", "223.3.47.107", "223.3.47.107"};
+    private static String[]IPAddress = {"223.3.37.159", "223.3.37.159", "223.3.37.159"};
+    /**
+     * 
+     * @param solution 求解器
+     * @param path   文件路径或者文件夹路径
+     * @param name   工程文件名
+     */
 
-    public UserClient(String solution , String path, String name, int times)
+    public UserClient(String solution , String path, String name)
     {
         if (solution.equals("CST"))
         {
@@ -34,17 +40,11 @@ public class UserClient
 
                 FileInputStream fis = null;
 
-                Socket ss = new Socket("223.3.47.107", 9999);
+                Socket ss = new Socket("223.3.37。159", 9999);
 
                 dos = new DataOutputStream(ss.getOutputStream());
 
                 File file = new File("../temp.cst");
-
-                if (file == null)
-                {
-
-                    System.out.println("文件名错误");
-                }
 
                 fis = new FileInputStream(file);
 
@@ -83,7 +83,7 @@ public class UserClient
             try
             {
 
-                Socket socket = new Socket("223.3.47.107", 9999);
+                Socket socket = new Socket("223.3.37。159", 9999);
 
                 int length = 0;
 
@@ -94,55 +94,66 @@ public class UserClient
                 FileInputStream fis = null;
 
                 dos = new DataOutputStream(socket.getOutputStream());
-
-                if (name.substring(name.indexOf(".") + 1).equals("pre"))
+                
+                File pathFile = new File(path);
+                
+                File [] fileList = pathFile.listFiles();
+                
+                for(int i = 0; i < fileList.length; i++)
                 {
+                	name = fileList[i].getName();
+                	
+                	 if (name.substring(name.indexOf(".") + 1).equals("pre"))
+                     {
 
-                    WriteFEKOFilePre(path, name);
+                         WriteFEKOFilePre(path, name);
 
-                    File filepre = new File("../tempfeko.pre");
+                         File filepre = new File("../tempfeko.pre");
 
-                    fis = new FileInputStream(filepre);
+                         fis = new FileInputStream(filepre);
 
-                    while ((length = fis.read(sendBytes, 0, sendBytes.length)) > 0)
-                    {
+                         while ((length = fis.read(sendBytes, 0, sendBytes.length)) > 0)
+                         {
 
-                        dos.write(sendBytes, 0, length);
+                             dos.write(sendBytes, 0, length);
 
-                        dos.flush();
+                             dos.flush();
 
-                    }
+                         }
 
+                     }
+                     else if(name.substring(name.indexOf(".") + 1).equals("cfm"))
+                     {
+
+                         WriteFEKOFileCfm(path, name);
+
+                         File filecfm = new File("../tempfeko.cfm");
+
+                         fis = new FileInputStream(filecfm);
+
+                         while ((length = fis.read(sendBytes, 0, sendBytes.length)) > 0)
+                         {
+
+                             dos.write(sendBytes, 0, length);
+
+                             dos.flush();
+
+                         }
+                     }
+
+                     if (fis != null)
+                     {
+
+                         fis.close();
+                     }
+                     if (dos != null)
+                     {
+
+                         dos.close();
+                     }
                 }
-                else if(name.substring(name.indexOf(".") + 1).equals("cfm"))
-                {
 
-                    WriteFEKOFileCfm(path, name);
-
-                    File filecfm = new File("../tempfeko.cfm");
-
-                    fis = new FileInputStream(filecfm);
-
-                    while ((length = fis.read(sendBytes, 0, sendBytes.length)) > 0)
-                    {
-
-                        dos.write(sendBytes, 0, length);
-
-                        dos.flush();
-
-                    }
-                }
-
-                if (fis != null)
-                {
-
-                    fis.close();
-                }
-                if (dos != null)
-                {
-
-                    dos.close();
-                }
+               
 
             }
             catch (UnknownHostException e)
@@ -186,6 +197,7 @@ public class UserClient
         if (length<10&&length>0) {
 			
         	ProjectName="0"+length+project;
+        	
 		}else {
 			
 			ProjectName=length+project;
@@ -237,7 +249,7 @@ public class UserClient
     {
         int lenght;
 
-        File in = new File(path);
+        File in = new File(path + "/" + name);
 
         File temp = new File("../tempfeko.pre");
 
@@ -249,18 +261,16 @@ public class UserClient
         
         String ProjectName="";
         
-        if (length<10&&length>0) {
-			
+        if (length<10&&length>0)
+        {
         	ProjectName="0"+length+project;
         	
-		}else {
-			
+		}else 
+		{
 			ProjectName=length+project;
 		}
 
         byte [] tempByte = ProjectName.getBytes();
-
-       // byte [] tempByte = project.getBytes();
 
         System.out.println("FEKO pre 字节长度为" + tempByte.length);
 
@@ -305,7 +315,7 @@ public class UserClient
     {
         int lenght;
 
-        File in = new File(path);
+        File in = new File(path + "/" + name);
 
         File temp = new File("../tempfeko.cfm");
 
@@ -317,9 +327,10 @@ public class UserClient
         
         String ProjectName="";
         
-        if (length<10&&length>0) {
-			
+        if (length<10&&length>0)
+        {
         	ProjectName="0"+length+project;
+        	
 		}else {
 			
 			ProjectName=length+project;

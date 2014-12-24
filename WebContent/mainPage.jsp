@@ -271,10 +271,10 @@ if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel"
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="odd">
+					<tr class="odd" >
 						<td><input type="checkbox"> 1</td>
 						<td>01/3/2013</td>
-						<td>歼-25模型磁场</td>
+						<td><a href="#" onclick="window.open('ComputeTaskDetail.jsp')">歼-25模型磁场</a></td>
 						<td>
 							<div id="progressbar5" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38" style="width: 100px;height: 10px;">
 								<div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: 38%;height: 10px;">
@@ -287,7 +287,7 @@ if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel"
 					<tr>
 						<td><input type="checkbox"> 3</td>
 						<td>07/3/2013</td>
-						<td>隐形侦察机模型红外场畸变</td>
+						<td><a href="#" onclick="window.open('ComputeTaskDetail.jsp')">隐形侦察机模型红外场畸变</a></td>
 						<td>
 							<div id="progressbar5" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38" style="width: 100px;height: 10px;">
 								<div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: 60%;height: 10px;">

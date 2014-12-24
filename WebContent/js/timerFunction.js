@@ -84,10 +84,38 @@
 	{
 		document.getElementById("PageCover").style.display="none";
 		document.getElementById("ks-component702").style.display="none";
+		AddOneRecordtoProject();
 	}
 	function modelWindowShow()
 	{
 		document.getElementById("PageCover").style.display="block";
 		document.getElementById("ks-component702").style.display="block";
 		document.getElementById("ks-component702").focus();
+	}
+	
+	/*
+	 * AddOneRecordtoProject
+	 */	
+	function AddOneRecordtoProject()
+	{
+		var x=document.getElementById("computeTask");
+		var y=x.getElementsByTagName("table")[0].insertRow(1);
+		var z=new Array();
+		for(var i=0;i<6;i++)
+		{
+			z[i]=y.insertCell(i);
+		}
+		var c = document.createElement("input");   
+        c.type="checkbox";    
+		z[0].appendChild(c);
+        z[0].innerHTML=1;
+        z[1].innerHTML=new Date();
+        z[2].innerHTML="testproject";
+        z[3].innerHTML="进行中";
+        var a = document.createElement("a");   
+        a.innerHTML="delete";    
+        z[4].appendChild(a);
+        var b = document.createElement("a");   
+        b.innerHTML="start";    
+        z[5].appendChild(b);
 	}
