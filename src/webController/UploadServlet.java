@@ -191,16 +191,16 @@ public class UploadServlet extends HttpServlet {
                             logger.debug("admin upload file:"+name+" success!");
                             
                             //12.19
-                            
-                            if (strEx.equals("CST"))
+               
+                            if (strEx.equals("cst"))
                             {
-								//UserClient userClient = new UserClient("CST", savePath + "/" + name, name);
+								UserClient userClient = new UserClient("CST", savePath + "/" + name, name);
 							}
                             else if(strEx.equals("pre")) 
                             {
-								//UserClient userClient = new UserClient("FEKO", savePath + "/" + strProjectName, name);
+								UserClient userClient = new UserClient("FEKO", savePath + "/" + strProjectName, name);
 							}
-                            
+                           
                             SimpleDateFormat dfs = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
                             String strTime = dfs.format(new Date());
                             String strSolver = null;
@@ -215,8 +215,24 @@ public class UploadServlet extends HttpServlet {
 							
                             if (strSolver.equals("CST") || strSolver.equals("FEKO")) 
                             {
-                            	WriteXml(name, strTime, strSolver, "admin", savePath + "/" + "XML");
+                            	if (strEx.equals("cst") || strEx.equals("pre"))
+                            	{
+                            		WriteXml(name, strTime, strSolver, "admin", savePath + "/" + "XML");
+								}
+                            	
 							}
+                            
+                            //12.23 start
+                            if (strEx.equals("cst")) 
+                            {
+								new File(savePath + "/" + name).delete();
+							}
+                            else
+                            {
+                            	new File(savePath + "/" + strProjectName + "/" + name).delete();
+                            	
+							}
+                            //12.23end
                                
                         } catch (Exception e) {
                             e.printStackTrace();
