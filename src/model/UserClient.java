@@ -14,7 +14,7 @@ public class UserClient
 {
 
     private String projectString = "";
-    private static String[]IPAddress = {"223.3.37。159", "223.3.37。159", "223.3.37。159"};
+    private static String[]IPAddress = {"223.3.37.159", "223.3.37.159", "223.3.37.159"};
     /**
      * 
      * @param solution 求解器
