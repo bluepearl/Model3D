@@ -186,7 +186,7 @@ public class UploadServlet extends HttpServlet {
                                     .getContextPath();
 //                            imgstr = imgstr + "/upload/" + filename;
                             imgstr = imgstr + "/upload/" + name;
-                            response.getWriter().write("http://localhost:8080"+imgstr);
+                            //response.getWriter().write("http://localhost:8080"+imgstr); Gu
                             uf.recordInsert();
                             logger.debug("admin upload file:"+name+" success!");
                             
@@ -213,12 +213,14 @@ public class UploadServlet extends HttpServlet {
                             	strSolver = "FEKO";
 							}
 							
-                            if (strSolver.equals("CST") || strSolver.equals("FEKO")) 
+                            if (strSolver!=null&&(strSolver.equals("CST") || strSolver.equals("FEKO"))) 
                             {
                             	if (strEx.equals("cst") || strEx.equals("pre"))
                             	{
-                            		WriteXml(name, strTime, strSolver, "admin", savePath + "/" + "XML");
+                            		//WriteXml(name, strTime, strSolver, "admin", savePath + "/" + "XML");
 								}
+                            	response.setContentType("text/plain;charset=utf-8");
+                            	response.getWriter().append(strProjectName+','+strSolver);
                             	
 							}
                             

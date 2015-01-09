@@ -20,9 +20,7 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 
 /**
-
- * Servlet implementation class UserDel
-
+ * Servlet implementation class FileChecked
  */
 @WebServlet("/UserDel")
 public class UserDel extends HttpServlet {

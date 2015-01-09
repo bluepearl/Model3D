@@ -1,6 +1,8 @@
 /**
  * 
  */
+var ProjectSuccessFlag=true;
+var solver;
 $(document).ready(function() {
 	$('#upload_modelfile').uploadify({
 		//以下参数均是可选
@@ -21,10 +23,14 @@ $(document).ready(function() {
 		'displayData' : 'percentage',
 		'onUploadSuccess':function(file,data,response){
 			if (data == "error") {     
-                //data就是服务器输出的内容。   
-                alert("上传失败！重名文件存在！")
-                $('#uploadFile').uploadify('cancel', '*');   //取消所有上传的文件  
+                //data就是服务器输出的内容。  
+				ProjectSuccessFlag=false;
+                alert("上传失败！重名模型文件存在！")
+                //$('#uploadFile').uploadify('cancel', '*');   //取消所有上传的文件  
                 }
+			else {
+				solver=data;
+			}
 			}
 	});
 	$('#upload_profile').uploadify({
@@ -47,9 +53,13 @@ $(document).ready(function() {
 		'onUploadSuccess':function(file,data,response){
 			if (data == "error") {     
                 //data就是服务器输出的内容。   
-                alert("上传失败！重名文件存在！")
-                $('#uploadFile').uploadify('cancel', '*');   //取消所有上传的文件  
+				ProjectSuccessFlag=false;
+                alert("上传失败！重名工程文件存在！")
+                //$('#uploadFile').uploadify('cancel', '*');   //取消所有上传的文件  
                 }
+			else {
+				solver=data;
+			}
 			}
 	});
 	$('#upload_confile').uploadify({
@@ -70,11 +80,25 @@ $(document).ready(function() {
 		'sizeLimit' : 86400, //控制上传文件的大小，单位byte
 		'displayData' : 'percentage',
 		'onUploadSuccess':function(file,data,response){
-			if (data == "error") {     
-                //data就是服务器输出的内容。   
-                alert("上传失败！重名文件存在！")
-                $('#uploadFile').uploadify('cancel', '*');   //取消所有上传的文件  
-                }
+				if (data == "error") {
+					// data就是服务器输出的内容。
+					ProjectSuccessFlag = false;
+					alert("上传失败！重名配置文件存在！")
+					// $('#uploadFile').uploadify('cancel', '*');
+					// //取消所有上传的文件
+				} else {
+					var param = data.split(',');
+					taskname=param[0];
+					solver=param[1];
+				}
+				if(ProjectSuccessFlag)
+				{
+					if(solver){
+						NewComputeTask('/Model3D/NewComputeTask?taskname='+taskname+'&solver='+solver+'&time='+(new Date()).Format('yyyy-MM-dd'));
+					}
+					else alert(solver);//"上传的并非可计算的任务文件"
+				}
+				else alert("project upload failed!")
 			}
 	});
 	$('#uploadProject').click(function() {
@@ -86,5 +110,33 @@ $(document).ready(function() {
 		$('#upload_modelfile').uploadify('cancle');
 		$('#upload_profile').uploadify('cancle');
 		$('#upload_confile').uploadify('cancle');
+		
 	});
 });
+
+//对Date的扩展，将 Date 转化为指定格式的String
+//月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 
+//年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) 
+//例子： 
+//(new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423 
+//(new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18 
+Date.prototype.Format = function(fmt) { // author: meizz
+	var o = {
+		"M+" : this.getMonth() + 1, // 月份
+		"d+" : this.getDate(), // 日
+		"h+" : this.getHours(), // 小时
+		"m+" : this.getMinutes(), // 分
+		"s+" : this.getSeconds(), // 秒
+		"q+" : Math.floor((this.getMonth() + 3) / 3), // 季度
+		"S" : this.getMilliseconds()
+	// 毫秒
+	};
+	if (/(y+)/.test(fmt))
+		fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+				.substr(4 - RegExp.$1.length));
+	for ( var k in o)
+		if (new RegExp("(" + k + ")").test(fmt))
+			fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k])
+					: (("00" + o[k]).substr(("" + o[k]).length)));
+	return fmt;
+}

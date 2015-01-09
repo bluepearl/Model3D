@@ -57,3 +57,7 @@ function quickview(rowindex)
 	//alert("第" + (m) + "行");
 	window.open('testmodel.jsp?modelname='+m);
 }
+function viewrecentmodel(name)
+{
+	window.open('testmodel.jsp?modelname='+name);
+}

@@ -91,3 +91,45 @@
 		document.getElementById("ks-component702").style.display="block";
 		document.getElementById("ks-component702").focus();
 	}
+	
+	/*
+	 * 
+	 */
+	//start compute
+	function StartCompute(url)
+	{
+	if (window.XMLHttpRequest)
+	  {// code for IE7, Firefox, Opera, etc.
+	  var xmlhttp=new XMLHttpRequest();
+	  }
+	else if (window.ActiveXObject)
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	if (xmlhttp!=null)
+	  {
+	  xmlhttp.onreadystatechange=function(){ 
+		  if (xmlhttp.readyState==4)
+		  {// 4 = "loaded"
+		  if (xmlhttp.status==200)
+		    {// 200 = "OK"
+			  alert(xmlhttp.responseText);
+		    }
+		  else
+		    {
+		    alert("Problem retrieving XML data:" + xmlhttp.statusText);
+		    }
+		  }};
+	  xmlhttp.open("GET",url,true);
+	  xmlhttp.send(null);
+	  }
+	else
+	  {
+	  alert("Your browser does not support XMLHTTP.");
+	  }
+	}
+	function StartThisCompute(taskname,solver)
+	{
+		alert(taskname);
+		StartCompute('/Model3D/StartCompute?taskname='+taskname+'&solver='+solver);
+	}

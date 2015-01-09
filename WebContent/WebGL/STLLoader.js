@@ -39,20 +39,25 @@ THREE.STLLoader.prototype.load = function (url, callback) {
 	var xhr = new XMLHttpRequest();
 
 	function onloaded( event ) {
+		if(event.target.readyState==4){
 
-		if ( event.target.status === 200 || event.target.status === 0 ) {
+			if ( event.target.status === 200 || event.target.status === 0 ) {
+				
+				
+					var geometry = scope.parse( event.target.response || event.target.responseText );
+					alert("3D model load start!");
+					scope.dispatchEvent( { type: 'load', content: geometry } );
+	
+					if ( callback ) callback( geometry );
+					alert("3D model load success!");
 
-				var geometry = scope.parse( event.target.response || event.target.responseText );
-
-				scope.dispatchEvent( { type: 'load', content: geometry } );
-
-				if ( callback ) callback( geometry );
-
-		} else {
-
-			scope.dispatchEvent( { type: 'error', message: 'Couldn\'t load URL [' + url + ']',
-				response: event.target.responseText } );
-
+			} 
+			else {
+	
+				scope.dispatchEvent( { type: 'error', message: 'Couldn\'t load URL [' + url + ']',
+					response: event.target.responseText } );
+	
+			}
 		}
 
 	}

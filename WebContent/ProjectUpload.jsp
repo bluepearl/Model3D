@@ -90,6 +90,7 @@
 			</div>
 </body>
 <script src="js/timerFunction.js"></script>
+<script src="js/Conmunicate.js"></script>
 <script language="javascript" type="text/javascript">  
 //防止客户端缓存文件，造成uploadify.js不更新，而引起的“喔唷，崩溃啦”  
 document.write("<script type='text/javascript' "  
