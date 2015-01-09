@@ -17,6 +17,7 @@ public class GirdfileList {
 	String unCheckedFileSql="select ID,filename from gridfile where verified=0;";
 	String searchFileSql="select ID,filename from gridfile where filename LIKE ?;";
 	String RecentModelFileSql="SELECT ID,filename FROM gridfile limit 0,3; ";
+	String ProjectSql="SELECT computetaskId,taskname,time,status,solver FROM computetask; ";
 	ArrayList<String> arrayList1;
 	ArrayList<String[]> arrayList2;
 	public ArrayList<String[]> getFileList()
@@ -94,6 +95,24 @@ public class GirdfileList {
 		return list;
 	}
 	
+	public ArrayList<String[]> getProjectList()
+	{
+		arrayList1 = new ArrayList<String>();
+		arrayList2 = new ArrayList<String[]>();
+		ArrayList<String[]> list = null;
+		mySQLConnector con=new mySQLConnector();
+		ResultSet rs=con.executeQuery(ProjectSql);
+		try
+		{		
+			convertList(rs);
+			list=arrayList2;
+		}catch(Exception e)
+		{ 
+			e.printStackTrace();
+			}
+		con.close();
+		return list;
+	}
 	public  void convertList(ResultSet rs) throws SQLException {
 
 		//List list = new ArrayList();

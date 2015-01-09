@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% 
-if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel")==null ) {
+if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel")==null||request.getAttribute("projectlist")==null ) {
 %>
 <jsp:forward page="/PrepareforMainpage">
 <jsp:param value="1" name="getdata"/>
@@ -93,22 +93,6 @@ if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel"
 						<p>模型号：${item[0]}</p>
 					</div>
 				</c:forEach>
-<!-- 					<div class="stats">
-						<p><span style="font-size:24px">plane.model</span></p>
-						<p>位于节点DB_Site1上</p>
-					</div>
-					<div class="stats">
-						<p><span style="font-size:24px">NO-747.model</span></p>
-						<p>位于节点DB_Site2上</p>
-					</div>
-				</section>
-				<section class="stats-wrapper">
-					<div class="stats">
-						<p><span style="font-size:24px">25F.model</span></p>
-						<p>位于节点DB_Site1上</p>
-					</div>
- -->
-
 					<div class="stats" style="float:left" onclick="selectSubContent(1)">
 						<p><span style="font-size:24px">...</span></p>
 						<p>More</p>
@@ -217,27 +201,6 @@ if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel"
 						<td><span onclick="viewmodel(${status.index})"><a href="#" >查看模型</a></span></td>
 					</tr>
 				</c:forEach>
-					<!-- 					<tr class="odd">
-						<td><input type="checkbox"> 1</td>
-						<td>歼-25模型</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"> 2</td>
-						<td>波音747模型</td>
-					</tr>
-					<tr class="odd">
-						<td><input type="checkbox"> 3</td>
-						<td>隐形侦察机模型</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"> 4</td>
-						<td>雄鹿直升机模型</td>
-					</tr>
-					<tr class="odd">
-						<td><input type="checkbox"> 5</td>
-						<td></td>
-					</tr>
- -->
 				</tbody>
 			</table>
 		</div>
@@ -262,48 +225,36 @@ if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel"
 			<table id="myTable" border="0" width="100">
 				<thead>
 					<tr>
-						<th class="header"><input type="checkbox">任务</th>
-						<th class="header">时间</th>
-						<th class="header">Solver</th>
-						<th class="header">进度</th>
-						<th class="header">删除</th>
-						<th class="header">启动</th>
+						<th class="header" style="min-width:50px"><input type="checkbox" style="width:20px">任务</th>
+						<th class="header" style="min-width:50px">任务名称</th>
+						<th class="header" style="min-width:50px">时间</th>
+						<th class="header" style="min-width:50px">Solver</th>
+						<th class="header" style="min-width:50px">进度</th>
+						<th class="header" style="min-width:30px">删除</th>
+						<th class="header" style="min-width:30px">启动</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="odd" >
-						<td><input type="checkbox"> 1</td>
-						<td>01/3/2013</td>
-						<td><a href="#" onclick="window.open('ComputeTaskDetail.jsp')">歼-25模型磁场</a></td>
-						<td>
-							<div id="progressbar5" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38" style="width: 100px;height: 10px;">
-								<div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: 38%;height: 10px;">
-								</div>
-							</div>
-						</td>
-						<td><a>delete</a></td>
-						<td><a>start</a></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"> 3</td>
-						<td>07/3/2013</td>
-						<td><a href="#" onclick="window.open('ComputeTaskDetail.jsp')">隐形侦察机模型红外场畸变</a></td>
-						<td>
-							<div id="progressbar5" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38" style="width: 100px;height: 10px;">
-								<div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: 60%;height: 10px;">
-								</div>
-							</div>
-						</td>
-						<td><a>delete</a></td>
-						<td><a>start</a></td>
-					</tr>
-					<tr class="odd">
-						<td><input type="checkbox"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
+					<c:forEach items="${projectlist}" var="item" varStatus="status">
+						<tr>
+							<td><input type="checkbox" value="1">${item[0]}</td><!-- taskID -->
+							<td>${item[2]}</td><!-- time -->
+							<td><a href="#" onclick="window.open('ComputeTaskDetail.jsp')">${item[1]}</a></td><!-- taskname -->
+							<td>${item[4]}</td><!-- solver -->
+							<td><!-- process -->
+								<c:choose>
+								<c:when test="${item[3]==0}">
+								<img alt="waiting" src="image/waiting2.gif" height=20 width=20>
+								</c:when>
+								<c:otherwise>
+									已完成
+								</c:otherwise>
+								</c:choose>
+							</td>
+							<td><a href="#">delete</a></td>
+							<td><a href="#" onclick="StartThisCompute('${item[1]}','${item[4]}')">start</a></td>
+						</tr>
+					</c:forEach>					
 				</tbody>
 			</table>
 			<button type="submit" class="black">删除</button> 

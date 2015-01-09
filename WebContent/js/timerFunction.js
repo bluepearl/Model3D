@@ -84,7 +84,6 @@
 	{
 		document.getElementById("PageCover").style.display="none";
 		document.getElementById("ks-component702").style.display="none";
-		AddOneRecordtoProject();
 	}
 	function modelWindowShow()
 	{
@@ -94,28 +93,43 @@
 	}
 	
 	/*
-	 * AddOneRecordtoProject
-	 */	
-	function AddOneRecordtoProject()
+	 * 
+	 */
+	//start compute
+	function StartCompute(url)
 	{
-		var x=document.getElementById("computeTask");
-		var y=x.getElementsByTagName("table")[0].insertRow(1);
-		var z=new Array();
-		for(var i=0;i<6;i++)
-		{
-			z[i]=y.insertCell(i);
-		}
-		var c = document.createElement("input");   
-        c.type="checkbox";    
-		z[0].appendChild(c);
-        z[0].innerHTML=1;
-        z[1].innerHTML=new Date();
-        z[2].innerHTML="testproject";
-        z[3].innerHTML="进行中";
-        var a = document.createElement("a");   
-        a.innerHTML="delete";    
-        z[4].appendChild(a);
-        var b = document.createElement("a");   
-        b.innerHTML="start";    
-        z[5].appendChild(b);
+	if (window.XMLHttpRequest)
+	  {// code for IE7, Firefox, Opera, etc.
+	  var xmlhttp=new XMLHttpRequest();
+	  }
+	else if (window.ActiveXObject)
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	if (xmlhttp!=null)
+	  {
+	  xmlhttp.onreadystatechange=function(){ 
+		  if (xmlhttp.readyState==4)
+		  {// 4 = "loaded"
+		  if (xmlhttp.status==200)
+		    {// 200 = "OK"
+			  alert(xmlhttp.responseText);
+		    }
+		  else
+		    {
+		    alert("Problem retrieving XML data:" + xmlhttp.statusText);
+		    }
+		  }};
+	  xmlhttp.open("GET",url,true);
+	  xmlhttp.send(null);
+	  }
+	else
+	  {
+	  alert("Your browser does not support XMLHTTP.");
+	  }
+	}
+	function StartThisCompute(taskname,solver)
+	{
+		alert(taskname);
+		StartCompute('/Model3D/StartCompute?taskname='+taskname+'&solver='+solver);
 	}
