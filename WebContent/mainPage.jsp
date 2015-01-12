@@ -238,8 +238,8 @@ if (request.getAttribute("filelist") == null||request.getAttribute("recentmodel"
 					<c:forEach items="${projectlist}" var="item" varStatus="status">
 						<tr>
 							<td><input type="checkbox" value="1">${item[0]}</td><!-- taskID -->
-							<td>${item[2]}</td><!-- time -->
 							<td><a href="#" onclick="window.open('ComputeTaskDetail.jsp')">${item[1]}</a></td><!-- taskname -->
+							<td>${item[2]}</td><!-- time -->
 							<td>${item[4]}</td><!-- solver -->
 							<td><!-- process -->
 								<c:choose>
