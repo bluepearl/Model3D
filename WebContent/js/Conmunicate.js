@@ -78,6 +78,7 @@ function AddOneRecordtoProject(taskid,submittime,taskname,status,solver)
     z[5].appendChild(a);
     var b = document.createElement("a");   
     b.innerHTML="start";    
+    b.addEventListener('click', function(){StartThisCompute(taskname,solver);}, false);
     z[6].appendChild(b);
 }
 
